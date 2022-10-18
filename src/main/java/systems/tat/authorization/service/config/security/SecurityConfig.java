@@ -1,0 +1,70 @@
+package systems.tat.authorization.service.config.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import systems.tat.authorization.service.config.data.WebConfig;
+
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author : Niklas Tat
+ * @since : 0.1
+ */
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private static final String[] COOKIES_TO_DELETE = {"JSESSIONID"};
+    private static final String ERROR_UNAUTHORIZED_MESSAGE = "Error: Unauthorized";
+    private static final String ERROR_FORBIDDEN_MESSAGE = "Error: Forbidden";
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint())
+                .accessDeniedHandler(accessDeniedHandler())
+                .and()
+                // Session management
+        .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .and()
+                // Requests
+                .authorizeRequests(authorizeRequests -> authorizeRequests
+                        .antMatchers(WebConfig.AUTH_WHITELIST).permitAll()
+                        .antMatchers(WebConfig.LOGOUT_URL).permitAll()
+                        .anyRequest().authenticated()
+                )
+                // Login
+                .formLogin(formLogin -> formLogin
+                        .loginPage(WebConfig.LOGIN_URL)
+                        .loginProcessingUrl(WebConfig.LOGIN_URL)
+                        .failureUrl(WebConfig.LOGIN_FAILURE_URL)
+                        .usernameParameter(WebConfig.USERNAME_PARAMETER)
+                        .passwordParameter(WebConfig.PASSWORD_PARAMETER)
+                        .defaultSuccessUrl(WebConfig.DEFAULT_SUCCESS_URL)
+                )
+                // Logout
+                .logout()
+                .logoutUrl(WebConfig.LOGOUT_URL)
+                .invalidateHttpSession(true)
+                .deleteCookies(COOKIES_TO_DELETE)
+                .logoutRequestMatcher(new AntPathRequestMatcher(WebConfig.LOGOUT_URL, HttpMethod.GET.name()))
+                .logoutSuccessUrl(WebConfig.LOGIN_URL);
+
+        return http.build();
+    }
+
+    private AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ERROR_UNAUTHORIZED_MESSAGE);
+    }
+
+    private AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, accessDeniedException) -> response.sendError(HttpServletResponse.SC_FORBIDDEN, ERROR_FORBIDDEN_MESSAGE);
+    }
+}
