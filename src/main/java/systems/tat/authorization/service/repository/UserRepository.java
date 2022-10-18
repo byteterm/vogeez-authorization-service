@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void updateUserPassword(@Param("u") String username, @Param("p") String password);
 
     @Modifying
-    @Query("update User as u set u.lastLoginDate = :l where u.username = :u")
+    @Query("update User as u set u.lastLoginDate = :d where u.username = :u")
     void updateUserLastLoginDate(@Param("u") String username, @Param("d") Date loginDate);
 
     boolean existsByUsername(String username);

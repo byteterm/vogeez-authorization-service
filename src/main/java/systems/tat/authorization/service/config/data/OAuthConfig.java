@@ -11,26 +11,23 @@ import org.springframework.context.annotation.Configuration;
 public class OAuthConfig {
 
     @Value("${tat.authorization-service.oauth2.issuer:https://accounts.tat.systems}")
-    public static String issuer;
+    public String issuer;
     @Value("${tat.authorization-service.oauth2.authorization-endpoint:/oauth/authorize}")
-    public static String authorizationEndpoint;
+    public String authorizationEndpoint;
     @Value("${tat.authorization-service.oauth2.token-endpoint:/oauth/token}")
-    public static String tokenEndpoint;
+    public String tokenEndpoint;
     @Value("${tat.authorization-service.oauth2.jwk-set-endpoint:/oauth/jwks}")
-    public static String jwkSetEndpoint;
+    public String jwkSetEndpoint;
     @Value("${tat.authorization-service.oauth2.token-revocation-endpoint:/oauth/revoke}")
-    public static String tokenRevocationEndpoint;
+    public String tokenRevocationEndpoint;
     @Value("${tat.authorization-service.oauth2.token-introspection-endpoint:/oauth/introspect}")
-    public static String tokenIntrospectionEndpoint;
+    public String tokenIntrospectionEndpoint;
     @Value("${tat.authorization-service.oauth2.oidc-client-registration-endpoint:/connect/register}")
-    public static String oidcClientRegistrationEndpoint;
+    public String oidcClientRegistrationEndpoint;
     @Value("${tat.authorization-service.oauth2.oidc-user-info-endpoint:/userinfo}")
-    public static String oidcUserInfoEndpoint;
-    @Value("${tat.authorization-service.oauth2.rsa.private-key}")
-    public static String rsaPrivateKey;
-    @Value("${tat.authorization-service.oauth2.rsa.public-key}")
-    public static String rsaPublicKey;
-
-    @Value("${tat.authorization-service.oauth2.access-token-validity-minutes:30L}")
-    public static Long accessTokenValidityMinutes;
+    public String oidcUserInfoEndpoint;
+    @Value("${tat.authorization-service.oauth2.rsa.private-key:?}")
+    public String rsaPrivateKey;
+    @Value("${tat.authorization-service.oauth2.rsa.public-key:?}")
+    public String rsaPublicKey;
 }

@@ -19,7 +19,6 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
 @AllArgsConstructor
 public class User {
 

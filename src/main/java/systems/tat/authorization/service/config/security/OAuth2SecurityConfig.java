@@ -1,5 +1,6 @@
 package systems.tat.authorization.service.config.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -21,7 +22,10 @@ import systems.tat.authorization.service.config.data.WebConfig;
  * @since : 0.1
  */
 @Configuration(proxyBeanMethods = false)
+@RequiredArgsConstructor
 public class OAuth2SecurityConfig {
+
+    private final OAuthConfig oAuthConfig;
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -48,14 +52,14 @@ public class OAuth2SecurityConfig {
     @Bean
     public ProviderSettings providerSettings() {
         return ProviderSettings.builder()
-                .authorizationEndpoint(OAuthConfig.authorizationEndpoint)
-                .tokenEndpoint(OAuthConfig.tokenEndpoint)
-                .jwkSetEndpoint(OAuthConfig.jwkSetEndpoint)
-                .tokenRevocationEndpoint(OAuthConfig.tokenRevocationEndpoint)
-                .tokenIntrospectionEndpoint(OAuthConfig.tokenIntrospectionEndpoint)
-                .oidcClientRegistrationEndpoint(OAuthConfig.oidcClientRegistrationEndpoint)
-                .oidcUserInfoEndpoint(OAuthConfig.oidcUserInfoEndpoint)
-                .issuer(OAuthConfig.issuer)
+                .authorizationEndpoint(oAuthConfig.authorizationEndpoint)
+                .tokenEndpoint(oAuthConfig.tokenEndpoint)
+                .jwkSetEndpoint(oAuthConfig.jwkSetEndpoint)
+                .tokenRevocationEndpoint(oAuthConfig.tokenRevocationEndpoint)
+                .tokenIntrospectionEndpoint(oAuthConfig.tokenIntrospectionEndpoint)
+                .oidcClientRegistrationEndpoint(oAuthConfig.oidcClientRegistrationEndpoint)
+                .oidcUserInfoEndpoint(oAuthConfig.oidcUserInfoEndpoint)
+                .issuer(oAuthConfig.issuer)
                 .build();
     }
 }

@@ -1,7 +1,9 @@
 package systems.tat.authorization.service.util;
 
 import com.nimbusds.jose.jwk.RSAKey;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import systems.tat.authorization.service.config.data.OAuthConfig;
 
 import java.security.*;
@@ -18,9 +20,13 @@ import java.util.UUID;
  * @since : 0.1
  */
 @Slf4j
+@RequiredArgsConstructor
+@Component
 public class RSAKeyUtil {
 
-    public static RSAKey getRSAKey() {
+    private final OAuthConfig oAuthConfig;
+
+    public RSAKey getRSAKey() {
         KeyPair keyPair = getKeyPair();
 
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
@@ -32,22 +38,22 @@ public class RSAKeyUtil {
                 .build();
     }
 
-    public static KeyPair getKeyPair() {
-        if (OAuthConfig.rsaPrivateKey == null
-                || OAuthConfig.rsaPublicKey == null) {
+    private KeyPair getKeyPair() {
+        if (oAuthConfig.rsaPrivateKey.equals("?")
+                || oAuthConfig.rsaPublicKey.equals("?")) {
             return generateKeyPair();
         }
 
         return loadKeyPair();
     }
 
-    private static KeyPair loadKeyPair() {
+    private KeyPair loadKeyPair() {
         PrivateKey privateKey = null;
         PublicKey publicKey = null;
         try {
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(OAuthConfig.rsaPrivateKey.getBytes());
-            EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(OAuthConfig.rsaPublicKey.getBytes());
+            EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(oAuthConfig.rsaPrivateKey.getBytes());
+            EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(oAuthConfig.rsaPublicKey.getBytes());
 
             privateKey = keyFactory.generatePrivate(privateKeySpec);
             publicKey = keyFactory.generatePublic(publicKeySpec);
@@ -59,7 +65,7 @@ public class RSAKeyUtil {
         return new KeyPair(publicKey, privateKey);
     }
 
-    private static KeyPair generateKeyPair() {
+    private KeyPair generateKeyPair() {
         KeyPair keyPair;
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
