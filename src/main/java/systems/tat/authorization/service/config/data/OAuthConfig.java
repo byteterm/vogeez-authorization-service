@@ -26,4 +26,11 @@ public class OAuthConfig {
     public static String oidcClientRegistrationEndpoint;
     @Value("${tat.authorization-service.oauth2.oidc-user-info-endpoint:/userinfo}")
     public static String oidcUserInfoEndpoint;
+    @Value("${tat.authorization-service.oauth2.rsa.private-key}")
+    public static String rsaPrivateKey;
+    @Value("${tat.authorization-service.oauth2.rsa.public-key}")
+    public static String rsaPublicKey;
+
+    @Value("${tat.authorization-service.oauth2.access-token-validity-minutes:30L}")
+    public static Long accessTokenValidityMinutes;
 }

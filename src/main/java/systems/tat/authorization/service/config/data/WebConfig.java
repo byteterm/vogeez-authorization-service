@@ -14,7 +14,7 @@ public class WebConfig {
     public static final String DEFAULT_SUCCESS_URL = "/account/profile";
     public static final String USERNAME_PARAMETER = "username";
     public static final String PASSWORD_PARAMETER = "password";
-    public static final String[] AUTH_WHITELIST = new String[] {
+    public static final String[] AUTH_WHITELIST = {
             // Authentication endpoints
             "/",
             LOGOUT_URL,
