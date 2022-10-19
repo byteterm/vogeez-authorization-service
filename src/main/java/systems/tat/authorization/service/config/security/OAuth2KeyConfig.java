@@ -24,7 +24,6 @@ import java.time.Duration;
 public class OAuth2KeyConfig {
 
     public static final Duration ACCESS_TOKEN_TIME_TO_LIVE = Duration.ofMinutes(30L);
-    private final RSAKeyUtil rsaKeyUtil;
 
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
@@ -33,7 +32,7 @@ public class OAuth2KeyConfig {
 
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
-        RSAKey rsaKey = rsaKeyUtil.getRSAKey();
+        RSAKey rsaKey = RSAKeyUtil.getRSAKey();
         JWKSet jwkSet = new JWKSet(rsaKey);
 
         return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
