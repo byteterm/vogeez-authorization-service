@@ -1,7 +1,10 @@
 package systems.tat.authorization.service.config.security;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -10,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import systems.tat.authorization.service.config.data.WebConfig;
+import systems.tat.authorization.service.service.CustomAuthenticationProvider;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,11 +22,14 @@ import javax.servlet.http.HttpServletResponse;
  * @since : 0.1
  */
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private static final String[] COOKIES_TO_DELETE = {"JSESSIONID"};
     private static final String ERROR_UNAUTHORIZED_MESSAGE = "Error: Unauthorized";
     private static final String ERROR_FORBIDDEN_MESSAGE = "Error: Forbidden";
+
+    private final CustomAuthenticationProvider customAuthenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,17 +44,17 @@ public class SecurityConfig {
                 // Requests
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                         .antMatchers(WebConfig.AUTH_WHITELIST).permitAll()
-                        .antMatchers(WebConfig.LOGOUT_URL).permitAll()
                         .anyRequest().authenticated()
                 )
                 // Login
+                .csrf().disable()
                 .formLogin(formLogin -> formLogin
                         .loginPage(WebConfig.LOGIN_URL)
                         .loginProcessingUrl(WebConfig.LOGIN_URL)
                         .failureUrl(WebConfig.LOGIN_FAILURE_URL)
                         .usernameParameter(WebConfig.USERNAME_PARAMETER)
                         .passwordParameter(WebConfig.PASSWORD_PARAMETER)
-                        .defaultSuccessUrl(WebConfig.DEFAULT_SUCCESS_URL)
+                        .defaultSuccessUrl(WebConfig.AUTHENTICATION_URL)
                 )
                 // Logout
                 .logout()
@@ -58,6 +65,11 @@ public class SecurityConfig {
                 .logoutSuccessUrl(WebConfig.LOGIN_URL);
 
         return http.build();
+    }
+
+    @Autowired
+    public void bindAuthenticationManager(AuthenticationManagerBuilder authenticationManagerBuilder) {
+        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider);
     }
 
     private AuthenticationEntryPoint authenticationEntryPoint() {

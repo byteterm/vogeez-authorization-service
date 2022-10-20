@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login | Vogeez</title>
+    <link rel="stylesheet" href="css/stylesheet.css" th:href="@{/css/stylesheet.css}">
+    <script src="https://kit.fontawesome.com/9db258bc87.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- Checks if the parameter #signIn -->
+    <div th:if="!${param.signUp}" class="container">
+        <div class="headline">
+            <h1 class="headline">Sign In</h1>
+        </div>
+        <form th:action="@{/signIn}" class="form-style" method="POST">
+            <input th:name="username" id="username_login" type="text" placeholder="Username..." required>
+            <input th:name="password" id="password_login" type="password" placeholder="Password..." required>
+            <input id="submit_login" type="submit" value="Sign In">
+            <a th:href="@{/?signUp=0}">Not a member yet?</a>
+        </form>
+        <div class="social-link-container">
+            <a href="#google"><i class="fa-brands fa-google"></i></a>
+            <a href="#twitch"><i class="fa-brands fa-twitch"></i></a>
+            <a href="#apple"><i class="fa-brands fa-apple"></i></a>
+            <a href="#instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+    </div>
+
+<!-- Checks if the parameter #signUp -->
+<div th:if="${param.signUp}" class="container">
+    <div class="headline">
+        <h1 class="headline">Sign Up</h1>
+    </div>
+    <form th:action="@{/signUp}" th:object="${signUpRequest}" class="form-style" method="POST">
+        <input th:field="*{username}" id="username_register" type="text" placeholder="Username..." required>
+        <input th:field="*{email}" id="email_register" type="email" placeholder="Email..." required>
+        <input th:field="*{password}" id="password_register" type="password" placeholder="Password..." required>
+        <input id="submit_register" type="submit" value="Sign Up">
+        <a th:href="@{/?signIn=0}">Already a member? Sign In!</a>
+    </form>
+</div>
+</body>
+</html>

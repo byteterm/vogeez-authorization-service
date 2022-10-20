@@ -8,6 +8,7 @@ import systems.tat.authorization.service.entity.User;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * @author : Niklas Tat
@@ -15,6 +16,9 @@ import java.util.Date;
  */
 @Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    Optional<User> findByUsername(String usernameOrEmail);
+    Optional<User> findByEmail(String usernameOrEmail);
 
     @Modifying
     @Query("update User as u set u.password = :p where u.username = :u")
