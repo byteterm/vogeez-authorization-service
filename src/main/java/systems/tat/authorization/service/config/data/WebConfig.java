@@ -12,7 +12,7 @@ public class WebConfig {
     public static final String AUTHENTICATION_URL = "/";
     public static final String LOGIN_URL = "/signIn";
     public static final String LOGOUT_URL = "/logout";
-    public static final String LOGIN_FAILURE_URL = "/?error";
+    public static final String LOGIN_FAILURE_URL = AUTHENTICATION_URL + "?error";
     public static final String DEFAULT_SUCCESS_URL = "/account/profile";
     public static final String USERNAME_PARAMETER = "username";
     public static final String PASSWORD_PARAMETER = "password";

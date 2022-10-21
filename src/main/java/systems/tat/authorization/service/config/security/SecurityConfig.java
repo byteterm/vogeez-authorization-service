@@ -49,12 +49,12 @@ public class SecurityConfig {
                 // Login
                 .csrf().disable()
                 .formLogin(formLogin -> formLogin
-                        .loginPage(WebConfig.LOGIN_URL)
+                        .loginPage(WebConfig.AUTHENTICATION_URL)
                         .loginProcessingUrl(WebConfig.LOGIN_URL)
                         .failureUrl(WebConfig.LOGIN_FAILURE_URL)
                         .usernameParameter(WebConfig.USERNAME_PARAMETER)
                         .passwordParameter(WebConfig.PASSWORD_PARAMETER)
-                        .defaultSuccessUrl(WebConfig.AUTHENTICATION_URL)
+                        .defaultSuccessUrl(WebConfig.DEFAULT_SUCCESS_URL)
                 )
                 // Logout
                 .logout()
@@ -62,7 +62,7 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .deleteCookies(COOKIES_TO_DELETE)
                 .logoutRequestMatcher(new AntPathRequestMatcher(WebConfig.LOGOUT_URL, HttpMethod.GET.name()))
-                .logoutSuccessUrl(WebConfig.LOGIN_URL);
+                .logoutSuccessUrl(WebConfig.AUTHENTICATION_URL);
 
         return http.build();
     }
