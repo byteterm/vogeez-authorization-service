@@ -1,13 +1,13 @@
 package systems.tat.authorization.service.config.data;
 
-import org.springframework.context.annotation.Configuration;
-
 /**
  * @author : Niklas Tat
  * @since : 0.1
  */
-@Configuration
 public class WebConfig {
+
+    private WebConfig() {
+    }
 
     public static final String AUTHENTICATION_URL = "/";
     public static final String LOGIN_URL = "/signIn";

@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 public class SecurityConfig {
 
     private static final String[] COOKIES_TO_DELETE = {"JSESSIONID"};
-    private static final String ERROR_UNAUTHORIZED_MESSAGE = "Error: Unauthorized";
     private static final String ERROR_FORBIDDEN_MESSAGE = "Error: Forbidden";
 
     private final CustomAuthenticationProvider customAuthenticationProvider;
@@ -73,7 +72,7 @@ public class SecurityConfig {
     }
 
     private AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ERROR_UNAUTHORIZED_MESSAGE);
+        return (request, response, authException) -> response.sendRedirect(WebConfig.AUTHENTICATION_URL);
     }
 
     private AccessDeniedHandler accessDeniedHandler() {

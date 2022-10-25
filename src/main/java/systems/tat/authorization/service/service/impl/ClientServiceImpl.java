@@ -12,7 +12,6 @@ import systems.tat.authorization.service.repository.UserRepository;
 import systems.tat.authorization.service.service.ClientService;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author : Niklas Tat
@@ -43,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
                 user.get().isAccountNonExpired(),
                 user.get().isCredentialsNonExpired(),
                 user.get().isAccountNonLocked(),
-                user.get().getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList())
+                user.get().getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList()
         );
 
         new AccountStatusUserDetailsChecker().check(userDetails);

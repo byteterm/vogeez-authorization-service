@@ -12,15 +12,15 @@ public class OAuthConfig {
 
     @Value("${tat.authorization-service.oauth2.issuer:https://accounts.tat.systems}")
     public String issuer;
-    @Value("${tat.authorization-service.oauth2.authorization-endpoint:/oauth/authorize}")
+    @Value("${tat.authorization-service.oauth2.authorization-endpoint:/oauth2/authorize}")
     public String authorizationEndpoint;
-    @Value("${tat.authorization-service.oauth2.token-endpoint:/oauth/token}")
+    @Value("${tat.authorization-service.oauth2.token-endpoint:/oauth2/token}")
     public String tokenEndpoint;
-    @Value("${tat.authorization-service.oauth2.jwk-set-endpoint:/oauth/jwks}")
+    @Value("${tat.authorization-service.oauth2.jwk-set-endpoint:/oauth2/jwks}")
     public String jwkSetEndpoint;
-    @Value("${tat.authorization-service.oauth2.token-revocation-endpoint:/oauth/revoke}")
+    @Value("${tat.authorization-service.oauth2.token-revocation-endpoint:/oauth2/revoke}")
     public String tokenRevocationEndpoint;
-    @Value("${tat.authorization-service.oauth2.token-introspection-endpoint:/oauth/introspect}")
+    @Value("${tat.authorization-service.oauth2.token-introspection-endpoint:/oauth2/introspect}")
     public String tokenIntrospectionEndpoint;
     @Value("${tat.authorization-service.oauth2.oidc-client-registration-endpoint:/connect/register}")
     public String oidcClientRegistrationEndpoint;

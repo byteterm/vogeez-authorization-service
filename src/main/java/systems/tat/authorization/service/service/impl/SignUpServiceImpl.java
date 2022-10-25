@@ -3,7 +3,6 @@ package systems.tat.authorization.service.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import systems.tat.authorization.service.entity.Role;
 import systems.tat.authorization.service.entity.User;
 import systems.tat.authorization.service.model.SignUpRequest;
 import systems.tat.authorization.service.repository.UserRepository;

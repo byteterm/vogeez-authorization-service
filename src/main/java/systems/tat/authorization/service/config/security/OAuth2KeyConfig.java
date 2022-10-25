@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
-import systems.tat.authorization.service.config.data.OAuthConfig;
 import systems.tat.authorization.service.util.RSAKeyUtil;
 
 import java.time.Duration;

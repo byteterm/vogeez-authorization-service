@@ -1,5 +1,6 @@
 package systems.tat.authorization.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,6 +30,7 @@ public class User {
     @Column(nullable = false, unique = true, length = 50, updatable = false)
     private String username;
     @Column(length = 144, nullable = false)
+    @JsonIgnore
     private String password;
     @Column(unique = true, length = 100, nullable = false, updatable = false)
     private String email;

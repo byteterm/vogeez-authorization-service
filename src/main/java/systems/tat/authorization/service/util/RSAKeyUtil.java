@@ -51,6 +51,7 @@ public class RSAKeyUtil {
         if (!Paths.get(KEY_PATH).toFile().exists()
                 || !privateKeyFilePath.toFile().exists()
                 || !publicKeyFilePath.toFile().exists()) {
+            log.info("No keys found. Generating new keys...");
             return generateKeyPair();
         }
 
@@ -67,9 +68,12 @@ public class RSAKeyUtil {
             PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
             PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
 
+            log.info("Keys loaded successfully from files");
+
             return new KeyPair(publicKey, privateKey);
         } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException e) {
             log.error("Error while loading keys", e);
+            log.warn("Generating new keys...");
             return generateKeyPair();
         }
     }

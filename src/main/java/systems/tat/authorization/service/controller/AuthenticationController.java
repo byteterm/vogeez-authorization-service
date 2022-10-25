@@ -43,8 +43,8 @@ public class AuthenticationController {
 
         if (user.isPresent()) {
             return "redirect:/?message=signUpSuccess";
-        } else {
-            return "redirect:/?signUp=failed";
         }
+
+        return "redirect:/?signUp=failed";
     }
 }
