@@ -4,8 +4,8 @@ plugins {
     id 'java'
 }
 
-group = 'systems.tat'
-version = '0.1-SNAPSHOT'
+group = 'net.vogeez'
+version = '0.5-SNAPSHOT'
 sourceCompatibility = '17'
 
 configurations {

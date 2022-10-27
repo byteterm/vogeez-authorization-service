@@ -654,3 +654,5 @@ Temporary Items
 .apdisk
 
 gradle/
+keys/
+db/
