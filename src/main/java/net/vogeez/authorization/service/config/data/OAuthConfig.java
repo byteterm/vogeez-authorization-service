@@ -26,8 +26,4 @@ public class OAuthConfig {
     public String oidcClientRegistrationEndpoint;
     @Value("${vogeez.authorization-service.oauth2.oidc-user-info-endpoint:/userinfo}")
     public String oidcUserInfoEndpoint;
-    @Value("${vogeez.authorization-service.oauth2.rsa.private-key:?}")
-    public String rsaPrivateKey;
-    @Value("${vogeez.authorization-service.oauth2.rsa.public-key:?}")
-    public String rsaPublicKey;
 }
