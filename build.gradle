@@ -16,9 +16,7 @@ configurations {
 
 
 repositories {
-    maven {
-        url = 'https://nexus.byteterm.de/repository/maven-public/'
-    }
+    //Todo: fix our nexus url. (permissions)
     mavenCentral()
 }
 

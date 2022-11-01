@@ -12,8 +12,7 @@ import java.util.regex.Pattern;
  */
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
-    //ToDo Change regex to match Password requirements
-    public final static Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9_]{3,30}$");
+    public final static Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@+-§$%&/(){}=?!<>|]){8,32}$");
 
     @Override
     public void initialize(Password constraintAnnotation) {
@@ -25,7 +24,6 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         if (value == null)
             return false;
 
-        //return PASSWORD_PATTERN.matcher(value).matches();
-        return true;
+        return PASSWORD_PATTERN.matcher(value).matches();
     }
 }
