@@ -105,8 +105,7 @@ pipeline {
             }
 
             steps {
-                script {
-                    container('kaniko') {
+                container('kaniko') {
                             withCredentials([file(credentialsId: DOCKER_REGISTRY_CREDENTIALS, variable: 'DOCKER_CONFIG_JSON')]) {
                                 sh 'cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json'
                                 sh '''
@@ -117,7 +116,6 @@ pipeline {
                                 '''
                             }
                     }
-                }
             }
         }
 
