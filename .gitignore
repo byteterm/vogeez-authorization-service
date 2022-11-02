@@ -653,6 +653,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+.idea/
 gradle/
 keys/
 db/

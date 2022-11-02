@@ -1,7 +1,7 @@
 def getUpdateMessage() {
-    updateConfig = readProperties file: '${WORKSPACE}/update.properties'
+    updateConfig = readProperties file: 'update.properties'
 
-    if (updateConfig['message'].replace("'", "") == null
+    if (updateConfig['message'] == null
             || VERSION != updateConfig['version'].replace("'", "")) {
         return null
     }
@@ -10,17 +10,17 @@ def getUpdateMessage() {
 }
 
 def getVersion() {
-    gradleConfig = readProperties file: '${WORKSPACE}/build.gradle'
+    gradleConfig = readProperties file: 'build.gradle'
     return gradleConfig['version'].replace("'", "")
 }
 
 def getGroup() {
-    gradleConfig = readProperties file: '${WORKSPACE}/build.gradle'
+    gradleConfig = readProperties file: 'build.gradle'
     return gradleConfig['group'].replace("'", "")
 }
 
 def getArtifact() {
-    gradleConfig = readProperties file: '${WORKSPACE}/settings.gradle'
+    gradleConfig = readProperties file: 'settings.gradle'
     return gradleConfig['rootProject.name'].replace("'", "")
 }
 

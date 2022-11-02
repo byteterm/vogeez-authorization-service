@@ -1,34 +1,35 @@
 def gv
+
 pipeline {
-    agent {
-        kubernetes {
-            yaml '''
-                apiVersion: v1
-                kind: Pod
-                spec:
-                serviceAccountName: internal-kubectl
-                containers:
-                - name: gradle
-                  image: gradle:7.5.1-jdk17
-                  command:
-                  - cat
-                  tty: true
-                  privileged: true
-                - name: kaniko 
-                    image: gcr.io/kaniko-project/executor:debug
-                    command:
-                    - cat
-                    tty: true
-                    privileged: true
-                - name: internal-kubectl 
-                    image: trstringer/internal-kubectl:latest
-                    command:
-                    - cat
-                    tty: true
-                    privileged: true
-                '''
-        }
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          serviceAccountName: internal-kubectl
+          containers:
+          - name: gradle 
+            image: gradle:7.5.1-jdk17
+            command:
+            - cat
+            tty: true
+            privileged: true
+          - name: kaniko 
+            image: gcr.io/kaniko-project/executor:debug
+            command:
+            - cat
+            tty: true
+            privileged: true
+          - name: internal-kubectl 
+            image: trstringer/internal-kubectl:latest
+            command:
+            - cat
+            tty: true
+            privileged: true
+        '''
     }
+  }
 
     environment {
         // Build Variables
