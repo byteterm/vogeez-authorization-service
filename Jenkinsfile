@@ -94,7 +94,7 @@ pipeline {
             // Publish only if it is a main branch
             when {
                 expression {
-                    BRANCH_NAME = 'main'
+                    BRANCH_NAME.startsWith('main')
                 }
             }
 
@@ -110,7 +110,7 @@ pipeline {
             // Deploy only if it is a main branch
             when {
                 expression {
-                    BRANCH_NAME = 'main'
+                    BRANCH_NAME.startsWith('main')
                 }
             }
 
