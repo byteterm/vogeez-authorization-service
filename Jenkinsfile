@@ -49,6 +49,8 @@ pipeline {
         DISCORD_RESULT = ' '
         DISCORD_THUMBNAIL = ' '
         DISCORD_TITLE = ' '
+        DISCORD_AVATAR = ' '
+        DISCORD_USERNAME = ' '
         DISCORD_WEBHOOK = credentials('byteterm-discord-webhook')
     }
 
@@ -67,6 +69,8 @@ pipeline {
 
                     DISCORD_TITLE = "${ARTIFACT}"
                     DISCORD_FOOTER = "Version - ${VERSION}"
+                    DISCORD_USERNAME = 'Vogeez'
+                    DISCORD_AVATAR = 'https://th.bing.com/th/id/OIP.G6GDfaclhjv0irgMY5SQWgHaHE?pid=ImgDet&rs=1'
                 }
             }
         }
@@ -112,7 +116,7 @@ pipeline {
                     def discordMessage = gv.getUpdateMessage();
                     if (discordMessage != null) {
                         DISCORD_RESULT = "SUCCESS"
-                        discordSend description: discordMessage, footer: DISCORD_FOOTER, image: DISCORD_IMAGE, link: DISCORD_LINK, result: DISCORD_RESULT, thumbnail: DISCORD_THUMBNAIL, title: DISCORD_TITLE, webhookUrl: DISCORD_WEBHOOK
+                        discordSend webhookURL: DISCORD_WEBHOOK, description: discordMessage,customAvatarUrl: DISCORD_AVATAR, customUsername: DISCORD_USERNAME, result: "SUCCESS", footer: DISCORD_FOOTER, thumbnail: DISCORD_THUMBNAIL, image: DISCORD_IMAGE, link: DISCORD_LINK
                     }
                 }
             }
