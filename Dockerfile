@@ -1,4 +1,10 @@
-COPY ./build/libs/vogeez-authentication-service.jar /vogeez-authentication-service.jar
+FROM gradle:7.5.1-jdk17 AS GradleBuild
+
+COPY ./ ./
+
+RUN gradle build
+
+COPY --from=GradleBuild /build/libs/vogeez-authentication-service.jar /vogeez-authentication-service.jar
 
 FROM openjdk:17
 

@@ -30,12 +30,6 @@ def testProject() {
     }
 }
 
-def buildProject() {
-    container('gradle') {
-        sh 'gradle build'
-    }
-}
-
 def publishDocker() {
     container('kaniko') {
         withCredentials([file(credentialsId: DOCKER_REGISTRY_CREDENTIALS, variable: 'DOCKER_CONFIG_JSON')]) {

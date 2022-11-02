@@ -62,12 +62,11 @@ pipeline {
                     GROUP = gv.getGroup()
                     ARTIFACT = gv.getArtifact()
 
-                    DOCKER_REGISTRY = "docker.byteter.de/vogeez"
+                    DOCKER_REGISTRY = "docker.byteterm.de/vogeez"
                     DOCKER_REGISTRY_CREDENTIALS = 'byteterm-nexus-kaniko'
 
                     DISCORD_TITLE = "${ARTIFACT}"
                     DISCORD_FOOTER = "Version - ${VERSION}"
-                    gv.publishDocker()
                 }
             }
         }
@@ -76,17 +75,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                echo "Testing ${ARTIFACT} ${VERSION}"
-                    //gv.testProject()
-                }
-            }
-        }
-
-        // Stage: Build
-        stage('Build') {
-            steps {
-                script {
-                    gv.buildProject()
+                    gv.testProject()
                 }
             }
         }
