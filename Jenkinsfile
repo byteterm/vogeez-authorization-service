@@ -80,6 +80,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
+                    echo "Test"
                     //gv.testProject()
                 }
             }
