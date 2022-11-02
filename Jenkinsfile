@@ -106,7 +106,17 @@ pipeline {
 
             steps {
                 script {
-                    gv.publishDocker()
+                    container('kaniko') {
+                            withCredentials([file(credentialsId: DOCKER_REGISTRY_CREDENTIALS, variable: 'DOCKER_CONFIG_JSON')]) {
+                                sh 'cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json'
+                                sh '''
+                                  /kaniko/executor \
+                                    --dockerfile=Dockerfile \
+                                    --context=dir://. \
+                                    --destination=${DOCKER_REGISTRY}/${ARTIFACT}:${VERSION}
+                                '''
+                            }
+                    }
                 }
             }
         }
