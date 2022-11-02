@@ -1,4 +1,4 @@
-FROM gradle:7.5.1-jdk17 AS GradleBuild
+FROM nginx:latest AS GradleBuild
 
 COPY ./ ./
 
