@@ -40,12 +40,12 @@ def publishDocker() {
     container('kaniko') {
         withCredentials([file(credentialsId: DOCKER_REGISTRY_CREDENTIALS, variable: 'DOCKER_CONFIG_JSON')]) {
             sh 'cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json'
-            sh '''
+            sh """
               /kaniko/executor \
                 --dockerfile=Dockerfile \
                 --context=dir://. \
-                --destination=docker.byteterm.de/vogeez/vogeez-authorization-service:0.5-SNAPSHOT
-            '''
+                --destination=${DOCKER_REGISTRY}/${ARTIFACT}:${VERSION}
+            """
         }
     }
 }

@@ -66,6 +66,7 @@ pipeline {
 
                     DISCORD_TITLE = "${ARTIFACT}"
                     DISCORD_FOOTER = "Version - ${VERSION}"
+                    gv.publishDocker()
                 }
             }
         }
