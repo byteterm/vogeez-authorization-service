@@ -67,6 +67,11 @@ pipeline {
 
                     DISCORD_TITLE = "${ARTIFACT}"
                     DISCORD_FOOTER = "Version - ${VERSION}"
+
+                    echo "VERSION: ${VERSION}"
+                    echo "GROUP: ${GROUP}"
+                    echo "ARTIFACT: ${ARTIFACT}"
+                    echo "DOCKER_REGISTRY: ${DOCKER_REGISTRY}"
                 }
             }
         }
@@ -75,7 +80,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    gv.testProject()
+                    //gv.testProject()
                 }
             }
         }
