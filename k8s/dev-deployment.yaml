@@ -4,21 +4,21 @@ metadata:
   name: authentication-service
   namespace: dev
 spec:
-    replicas: 1
-    selector:
-        matchLabels:
-          app: authentication-service
-    template:
-        metadata:
-          labels:
-            app: authentication-service
-        spec:
-          containers:
-          - name: authentication-service
-            image: authentication-service:0.5.0-SNAPSHOT
-            ports:
-                - containerPort: 8080
-            env:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authentication-service
+  template:
+    metadata:
+      labels:
+        app: authentication-service
+    spec:
+      containers:
+        - name: authentication-service
+          image: authentication-service:0.5.0-SNAPSHOT
+          ports:
+            - containerPort: 8080
+          env:
             - name: SPRING_PROFILES_ACTIVE
               valueFrom:
                 configMapKeyRef:
@@ -69,17 +69,17 @@ spec:
                 configMapKeyRef:
                   name: authentication-config
                   key: password.encoder.key.length
-            volumeMounts:
-              - mountPath: "./"
-                name: authentication-keys
-          volumes:
-            - name: authentication-keys
-              configMap:
-                name: authentication-keys
-                items:
-                  - key: private.key
-                    path: /keys/private.key
-                  - key: public.key
-                    path: /keys/public.key
-          imagePullSecrets:
-            - name: byteterm-docker-registry
+          volumeMounts:
+            - mountPath: "./"
+              name: authentication-keys
+      volumes:
+        - name: authentication-keys
+          configMap:
+            name: authentication-keys
+            items:
+              - key: private.key
+                path: /keys/private.key
+              - key: public.key
+                path: /keys/public.key
+      imagePullSecrets:
+        - name: byteterm-docker-registry

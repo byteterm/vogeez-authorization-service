@@ -1,6 +1,11 @@
-FROM gradle:7.5.1-jdk17
-COPY . /
+FROM gradle:7.5.1-jdk17 as builder
+
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
 RUN gradle build
-COPY build/libs/*.jar authentication.jar
+
 FROM openjdk:17
-CMD ["java", "-jar", "authentication.jar"]
+COPY --from=builder /home/gradle/src/build/libs/vogeez-authentication-service.jar /app/
+
+WORKDIR /app
+CMD ["java", "-jar", "vogeez-authentication-service.jar"]
