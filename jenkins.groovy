@@ -44,7 +44,7 @@ def publishDocker() {
               /kaniko/executor \
                 --dockerfile=Dockerfile \
                 --context=dir://. \
-                --destination=${DOCKER_REGISTRY}/${PROJECT_NAME}:${PROJECT_VERSION}
+                --destination=${DOCKER_REGISTRY}/${ARTIFACT}:${VERSION}
             '''
         }
     }
