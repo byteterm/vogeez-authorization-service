@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
-    public final static Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@+-§$%&/(){}=?!<>|]){8,32}$");
+    public static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@+-§$%&/(){}=?!<>|]){8,32}$");
 
     @Override
     public void initialize(Password constraintAnnotation) {

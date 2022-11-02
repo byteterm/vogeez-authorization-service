@@ -1,0 +1,85 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: authentication-service
+  namespace: dev
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+          app: authentication-service
+    template:
+        metadata:
+          labels:
+            app: authentication-service
+        spec:
+          containers:
+          - name: authentication-service
+            image: authentication-service:0.5.0-SNAPSHOT
+            ports:
+                - containerPort: 8080
+            env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-config
+                  key: spring.active.profile
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-config
+                  key: spring.datasource.url
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PASSWORD
+            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-config
+                  key: spring.datasource.driver.class.name
+            - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-config
+                  key: spring.jpa.database.plattform
+            - name: VOGEEZ_AUTHORIZATION-SERVICE_OAUTH2_ISSUER
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-config
+                  key: oauth2.issuer.uri
+            - name: VOGEEZ_AUTHORIZATION-SERVICE_PASSWORD-ENCOER_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-config
+                  key: password.encoder.secret
+            - name: VOGEEZ_AUTHORIZATION-SERVICE_PASSWORD-ENCODER_ITERATIONS
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-config
+                  key: password.encoder.iterations
+            - name: VOGEEZ_AUTHORIZATION-SERVICE_PASSWORD-ENCODER_KEY-LENGTH
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-config
+                  key: password.encoder.key.length
+            volumeMounts:
+              - mountPath: "./"
+                name: authentication-keys
+          volumes:
+            - name: authentication-keys
+              configMap:
+                name: authentication-keys
+                items:
+                  - key: private.key
+                    path: /keys/private.key
+                  - key: public.key
+                    path: /keys/public.key
+          imagePullSecrets:
+            - name: byteterm-docker-registry
