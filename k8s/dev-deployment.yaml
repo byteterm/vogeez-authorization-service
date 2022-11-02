@@ -13,9 +13,18 @@ spec:
       labels:
         app: authentication-service
     spec:
+      volumes:
+        - name: authentication-key
+          configMap:
+            name: authentication-keys
+            items:
+              - key: private.key
+                path: private.key
+              - key: public.key
+                path: public.key
       containers:
         - name: authentication-service
-          image: authentication-service:0.5.0-SNAPSHOT
+          image: docker.byteterm.de/vogeez/vogeez-authorization-service:0.5-SNAPSHOT
           ports:
             - containerPort: 8080
           env:
@@ -70,16 +79,7 @@ spec:
                   name: authentication-config
                   key: password.encoder.key.length
           volumeMounts:
-            - mountPath: "./"
-              name: authentication-keys
-      volumes:
-        - name: authentication-keys
-          configMap:
-            name: authentication-keys
-            items:
-              - key: private.key
-                path: /keys/private.key
-              - key: public.key
-                path: /keys/public.key
+            - mountPath: /app/keys/
+              name: authentication-key
       imagePullSecrets:
         - name: byteterm-docker-registry
