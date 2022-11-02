@@ -62,16 +62,10 @@ pipeline {
                     GROUP = gv.getGroup()
                     ARTIFACT = gv.getArtifact()
 
-                    DOCKER_REGISTRY = 'docker.byteterm.de/vogeez'
                     DOCKER_REGISTRY_CREDENTIALS = 'byteterm-nexus-kaniko'
 
                     DISCORD_TITLE = "${ARTIFACT}"
                     DISCORD_FOOTER = "Version - ${VERSION}"
-
-                    echo "VERSION: ${VERSION}"
-                    echo "GROUP: ${GROUP}"
-                    echo "ARTIFACT: ${ARTIFACT}"
-                    echo "DOCKER_REGISTRY: ${DOCKER_REGISTRY}"
                 }
             }
         }
@@ -80,7 +74,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    echo "Test"
+                echo "Testing ${ARTIFACT} ${VERSION}"
                     //gv.testProject()
                 }
             }
@@ -105,17 +99,9 @@ pipeline {
             }
 
             steps {
-                container('kaniko') {
-                            withCredentials([file(credentialsId: DOCKER_REGISTRY_CREDENTIALS, variable: 'DOCKER_CONFIG_JSON')]) {
-                                sh 'cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json'
-                                sh '''
-                                  /kaniko/executor \
-                                    --dockerfile=Dockerfile \
-                                    --context=dir://. \
-                                    --destination=$DOCKER_REGISTRY/$ARTIFACT:$VERSION
-                                '''
-                            }
-                    }
+                script {
+                    gv.publishDocker()
+                }
             }
         }
 

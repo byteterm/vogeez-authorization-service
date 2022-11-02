@@ -44,7 +44,7 @@ def publishDocker() {
               /kaniko/executor \
                 --dockerfile=Dockerfile \
                 --context=dir://. \
-                --destination=${DOCKER_REGISTRY}/${ARTIFACT}:${VERSION}
+                --destination=docker.byteterm.de/vogeez/vogeez-authorization-service:0.5-SNAPSHOT
             '''
         }
     }
