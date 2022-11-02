@@ -49,7 +49,7 @@ pipeline {
         DISCORD_RESULT = ' '
         DISCORD_THUMBNAIL = ' '
         DISCORD_TITLE = ' '
-        DISCORD_WEBHOOK = ' '
+        DISCORD_WEBHOOK = credentials('byteterm-discord-webhook')
     }
 
     stages {
@@ -108,6 +108,11 @@ pipeline {
             steps {
                 script {
                     gv.deploy()
+
+                    def discordMessage = gv.getUpdateMessage();
+                    if (discordMessage != null) {
+                        DISCORD_RESULT = "SUCCESS"
+                        discordSend description: discordMessage, footer: DISCORD_FOOTER, image: DISCORD_IMAGE, link: DISCORD_LINK, result: DISCORD_RESULT, thumbnail: DISCORD_THUMBNAIL, title: DISCORD_TITLE, webhookUrl: DISCORD_WEBHOOK
                 }
             }
         }
