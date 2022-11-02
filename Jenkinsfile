@@ -113,6 +113,7 @@ pipeline {
                     if (discordMessage != null) {
                         DISCORD_RESULT = "SUCCESS"
                         discordSend description: discordMessage, footer: DISCORD_FOOTER, image: DISCORD_IMAGE, link: DISCORD_LINK, result: DISCORD_RESULT, thumbnail: DISCORD_THUMBNAIL, title: DISCORD_TITLE, webhookUrl: DISCORD_WEBHOOK
+                    }
                 }
             }
         }
