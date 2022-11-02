@@ -62,6 +62,7 @@ pipeline {
                     GROUP = gv.getGroup()
                     ARTIFACT = gv.getArtifact()
 
+                    DOCKER_REGISTRY = "docker.byteter.de/vogeez"
                     DOCKER_REGISTRY_CREDENTIALS = 'byteterm-nexus-kaniko'
 
                     DISCORD_TITLE = "${ARTIFACT}"
