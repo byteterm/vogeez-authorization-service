@@ -112,7 +112,7 @@ pipeline {
                                   /kaniko/executor \
                                     --dockerfile=Dockerfile \
                                     --context=dir://. \
-                                    --destination=${DOCKER_REGISTRY}/${ARTIFACT}:${VERSION}
+                                    --destination=$DOCKER_REGISTRY/$ARTIFACT:$VERSION
                                 '''
                             }
                     }
