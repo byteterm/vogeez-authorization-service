@@ -6,7 +6,6 @@ plugins {
 
 group = 'net.vogeez'
 version = '0.5-SNAPSHOT'
-sourceCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -14,10 +13,15 @@ configurations {
     }
 }
 
+bootJar {
+    archiveFileName = 'vogeez-authentication-service.jar'
+}
+
 
 repositories {
-    //Todo: fix our nexus url. (permissions)
-    mavenCentral()
+    maven {
+        url 'https://nexus.byteterm.de/repository/maven-public/'
+    }
 }
 
 dependencies {

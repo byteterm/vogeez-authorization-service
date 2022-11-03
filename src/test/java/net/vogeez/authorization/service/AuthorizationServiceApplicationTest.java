@@ -31,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AuthorizationServiceApplicationTest {
 
 
+    /*
     private final String REDIRECT_URI = "http://127.0.0.1/login/oauth2/code/tat";
     private final String AUTHORIZATION_REQUEST = UriComponentsBuilder
             .fromPath("/oauth2/authorize")
@@ -146,4 +147,5 @@ class AuthorizationServiceApplicationTest {
         assertThat(htmlPage.getElementById("password_login")).isNotNull();
         assertThat(htmlPage.getElementById("submit_login")).isNotNull();
     }
+     */
 }
