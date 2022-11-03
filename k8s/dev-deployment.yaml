@@ -25,6 +25,7 @@ spec:
       containers:
         - name: authentication-service
           image: docker.byteterm.de/vogeez/vogeez-authorization-service:0.5-SNAPSHOT
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
