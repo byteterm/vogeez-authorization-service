@@ -2,11 +2,13 @@ package net.vogeez.authorization.service.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.vogeez.authorization.service.annotation.AcceptTerms;
 import net.vogeez.authorization.service.annotation.Password;
 import net.vogeez.authorization.service.annotation.Username;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author : Niklas Tat
@@ -20,7 +22,7 @@ public class SignUpRequest {
         @Username
         private String username;
 
-        @Email
+        @Email(message = "Email is not valid")
         @NotBlank
         private String email;
 
@@ -28,7 +30,11 @@ public class SignUpRequest {
         @Password
         private String password;
 
-        //@NotBlank
-        //@Password
-        //private String passwordRepeat;
+        @NotBlank
+        @Password
+        private String passwordRepeat;
+
+        @NotNull
+        @AcceptTerms
+        private boolean acceptTerms;
 }

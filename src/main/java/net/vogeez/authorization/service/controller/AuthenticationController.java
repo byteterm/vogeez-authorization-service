@@ -22,6 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
+    /*
     private final SignUpService signUpService;
 
     @GetMapping("/")
@@ -47,4 +48,5 @@ public class AuthenticationController {
 
         return "redirect:/?signUp=failed";
     }
+     */
 }

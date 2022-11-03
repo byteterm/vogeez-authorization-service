@@ -16,8 +16,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Password {
 
-    //ToDo Change message to match Password requirements let the user know what is wrong
-    String message() default "Password is not valid";
+    String message() default "Password min length is 8 and max length is 32," +
+            "must contain at least one lowercase, uppercase, special character and number!";
 
     Class<?>[] groups() default { };
 

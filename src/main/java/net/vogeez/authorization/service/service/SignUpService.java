@@ -11,6 +11,6 @@ import java.util.Optional;
  */
 public interface SignUpService {
 
-    Optional<User> signUpUser(SignUpRequest signUpRequest);
+    User signUpUser(SignUpRequest signUpRequest);
     boolean existsUserByUsernameOrEmail(String username, String email);
 }

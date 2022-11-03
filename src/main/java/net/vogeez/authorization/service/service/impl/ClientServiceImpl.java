@@ -33,16 +33,16 @@ public class ClientServiceImpl implements ClientService {
             user = userRepository.findByUsername(usernameOrEmail);
         }
 
-        user.orElseThrow(() -> new UsernameNotFoundException("Username or Email {} not found" + usernameOrEmail));
+        User foundUser = user.orElseThrow(() -> new UsernameNotFoundException("Username or Email {} not found" + usernameOrEmail));
 
         org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
-                user.get().getUsername(),
-                user.get().getPassword(),
-                user.get().isEnabled(),
-                user.get().isAccountNonExpired(),
-                user.get().isCredentialsNonExpired(),
-                user.get().isAccountNonLocked(),
-                user.get().getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList()
+                foundUser.getUsername(),
+                foundUser.getPassword(),
+                foundUser.isEnabled(),
+                foundUser.isAccountNonExpired(),
+                foundUser.isCredentialsNonExpired(),
+                foundUser.isAccountNonLocked(),
+                foundUser.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList()
         );
 
         new AccountStatusUserDetailsChecker().check(userDetails);

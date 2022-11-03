@@ -116,7 +116,7 @@ pipeline {
                     def discordMessage = gv.getUpdateMessage();
                     if (discordMessage != null) {
                         DISCORD_RESULT = "SUCCESS"
-                        discordSend webhookURL: DISCORD_WEBHOOK, description: discordMessage,customAvatarUrl: DISCORD_AVATAR, customUsername: DISCORD_USERNAME, result: "SUCCESS", footer: DISCORD_FOOTER, thumbnail: DISCORD_THUMBNAIL, image: DISCORD_IMAGE, link: DISCORD_LINK
+                        discordSend webhookURL: DISCORD_WEBHOOK, description: discordMessage,customAvatarUrl: DISCORD_AVATAR, customUsername: DISCORD_USERNAME, result: "SUCCESS", footer: DISCORD_FOOTER, thumbnail: DISCORD_THUMBNAIL,title: DISCORD_TITLE, image: DISCORD_IMAGE, link: DISCORD_LINK
                     }
                 }
             }

@@ -16,9 +16,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Username {
 
-    // ToDo Change message to match username requirements let the user know what is wrong
-    // ToDo Adding size check
-    String message() default "Username is not valid";
+    String message() default "Username must be between 3 and 20 characters long and can only contain letters, numbers and underscores";
 
     Class<?>[] groups() default { };
 

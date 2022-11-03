@@ -12,8 +12,7 @@ import java.util.regex.Pattern;
  */
 public class UsernameValidator implements ConstraintValidator<Username, String> {
 
-    //ToDo Change regex to match username requirements
-    public final static Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_]{3,15}$");
+    public static final Pattern USERNAME_PATTERN = Pattern.compile("^\\w{3,15}$");
 
     @Override
     public void initialize(Username constraintAnnotation) {

@@ -22,6 +22,6 @@ public class WebConfig {
             // Authentication endpoints
             AUTHENTICATION_URL,
             LOGIN_URL,
-            "/signUp",
+            "/signup",
     };
 }

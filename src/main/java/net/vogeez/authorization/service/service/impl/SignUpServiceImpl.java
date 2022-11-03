@@ -24,21 +24,25 @@ public class SignUpServiceImpl implements SignUpService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Optional<User> signUpUser(SignUpRequest signUpRequest) {
+    public User signUpUser(SignUpRequest signUpRequest) {
         //ToDo set role
 
-        return userRepository.existsByUsernameOrEmail(signUpRequest.getUsername(), signUpRequest.getEmail()) ?
-                Optional.empty() :
-                Optional.of(userRepository.save(User.builder()
-                        .username(signUpRequest.getUsername())
-                        .email(signUpRequest.getEmail())
-                        .password(passwordEncoder.encode(signUpRequest.getPassword()))
-                        .accountNonExpired(true)
-                        .accountNonLocked(true)
-                        .credentialsNonExpired(true)
-                        .enabled(true)
-                        .emailVerified(false)
-                        .build()));
+        if (!signUpRequest.getPassword().equals(signUpRequest.getPasswordRepeat()))
+            throw new IllegalArgumentException("Passwords do not match");
+
+
+        Optional<User> user = Optional.of(userRepository.save(User.builder()
+                .username(signUpRequest.getUsername())
+                .email(signUpRequest.getEmail())
+                .password(passwordEncoder.encode(signUpRequest.getPassword()))
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .enabled(true)
+                .emailVerified(false)
+                .build()));
+
+        return user.orElseThrow(() -> new RuntimeException("User could not be created"));
     }
 
     @Override
