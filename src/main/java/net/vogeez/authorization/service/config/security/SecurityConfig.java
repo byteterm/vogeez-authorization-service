@@ -12,8 +12,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import net.vogeez.authorization.service.config.data.WebConfig;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -63,7 +66,6 @@ public class SecurityConfig {
                 .deleteCookies(COOKIES_TO_DELETE)
                 .logoutRequestMatcher(new AntPathRequestMatcher(WebConfig.LOGOUT_URL, HttpMethod.GET.name()))
                 .logoutSuccessUrl(WebConfig.AUTHENTICATION_URL);
-
         return http.build();
     }
 

@@ -1,6 +1,7 @@
 package net.vogeez.authorization.service.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import net.vogeez.authorization.service.exception.UserAlreadyExistsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import net.vogeez.authorization.service.entity.User;
@@ -42,7 +43,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .emailVerified(false)
                 .build()));
 
-        return user.orElseThrow(() -> new RuntimeException("User could not be created"));
+        return user.orElseThrow(() -> new UserAlreadyExistsException("A user with the given username or email already exists"));
     }
 
     @Override

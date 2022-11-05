@@ -2,6 +2,7 @@ package net.vogeez.authorization.service.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.vogeez.authorization.service.annotation.Username;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import net.vogeez.authorization.service.entity.User;
 import net.vogeez.authorization.service.repository.UserRepository;
 import net.vogeez.authorization.service.service.ClientService;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -25,7 +27,7 @@ public class ClientServiceImpl implements ClientService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(@Valid @Username String usernameOrEmail) throws UsernameNotFoundException {
         Optional<User> user;
         if (usernameOrEmail.contains("@")) {
             user = userRepository.findByEmail(usernameOrEmail);
