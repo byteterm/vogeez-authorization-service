@@ -3,7 +3,6 @@ package net.vogeez.authorization.service.config.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,8 +15,20 @@ import org.springframework.security.oauth2.server.authorization.config.ProviderS
 import org.springframework.security.web.SecurityFilterChain;
 import net.vogeez.authorization.service.config.data.OAuthConfig;
 import net.vogeez.authorization.service.config.data.WebConfig;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 /**
+ * With this Configuration class, we can configure the OAuth2 Authorization Server.
+ * Here we configure the SecurityFilterChain for the OAuth2 Authorization Server,
+ * the RegisteredClientRepository to store / get the registered clients and with the
+ * ProviderSettings we can configure the issuer of the tokens and the endpoints.
+ *
+ * @see SecurityFilterChain
+ * @see OAuth2AuthorizationServerConfiguration
+ * @see RegisteredClientRepository
+ * @see JdbcOperations
+ * @see ProviderSettings
+ *
  * @author : Niklas Tat
  * @since : 0.1
  */
@@ -28,13 +39,12 @@ public class OAuth2SecurityConfig {
     private final OAuthConfig oAuthConfig;
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Order(1)
     public SecurityFilterChain oauthSecurityFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
-        http.formLogin(formLogin -> formLogin
-                .loginPage(WebConfig.AUTHENTICATION_URL)
-                .loginProcessingUrl(WebConfig.LOGIN_URL)
+        http.exceptionHandling(exceptions -> exceptions
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(WebConfig.AUTHENTICATION_URL))
         );
         return http.build();
     }

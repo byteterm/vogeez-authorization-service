@@ -7,6 +7,17 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
 /**
+ * This class is used to validate the {@link Password} annotation.
+ * It implements the {@link ConstraintValidator} interface.
+ * The {@link Password} class is the annotation class.
+ * The {@link String} class is the type
+ * The isValid method is used to validate the {@link Password} annotation.
+ * Here is the logic to validate the {@link Password} annotation.
+ *
+ * @see ConstraintValidator
+ * @see Password
+ * @see String
+ *
  * @author : Niklas Tat
  * @since : 0.1
  */
@@ -25,7 +36,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
      * Note: the regex check the input string for blank chars! (Whitespace)
      *
      */
-    public final static Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^§&+=])(?=\\S+$).{8,32}$");
+    public static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^§&+=])(?=\\S+$).{8,32}$");
 
     @Override
     public void initialize(Password constraintAnnotation) {

@@ -122,15 +122,6 @@ class AuthorizationServiceApplicationTest {
         assertThat(location).contains("code=");
     }
 
-    @Test
-    void tryToUsePasswordRegex() {
-        String passwordRight = "aaBB99@LPmk3";
-        String passwordWrong = "aaBBccDDee@";
-        String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^§&+=])(?=\\S+$).{8,32}$";
-        System.out.println("Password Correct Check: " + passwordRight.matches(pattern));
-        System.out.println("Password Incorrect Check: " + passwordWrong.matches(pattern));
-    }
-
     private static <P extends Page> P signIn(HtmlPage page, String username, String password) throws IOException {
         HtmlInput usernameInput = page.getHtmlElementById("username_login");
         HtmlInput passwordInput = page.getHtmlElementById("password_login");

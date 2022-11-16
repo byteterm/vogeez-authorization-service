@@ -2,6 +2,8 @@ package net.vogeez.authorization.service.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.vogeez.authorization.service.annotation.Password;
+import net.vogeez.authorization.service.annotation.Username;
 import net.vogeez.authorization.service.service.CustomAuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,7 +13,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
+
 /**
+ * This Service is used to authenticate the user.
+ * It implements the {@link CustomAuthenticationProvider} interface and provides all the methods to authenticate the user.
+ * The {@link CustomAuthenticationProviderImpl} class is annotated with {@link Service} to make it a Spring Bean.
+ * The {@link PasswordEncoder} class is used to encode the password.
+ *
+ * @see Service
+ * @see CustomAuthenticationProvider
+ * @see PasswordEncoder
+ *
  * @author : Niklas Tat
  * @since : 0.5
  */
@@ -25,7 +38,14 @@ public class CustomAuthenticationProviderImpl implements CustomAuthenticationPro
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        return checkPassword(userDetailsService.loadUserByUsername(authentication.getName()), authentication.getCredentials().toString());
+        @Valid
+        @Username
+        String username = authentication.getName();
+        @Valid
+        @Password
+        String password = authentication.getCredentials().toString();
+
+        return checkPassword(userDetailsService.loadUserByUsername(username), password);
     }
 
     private Authentication checkPassword(UserDetails userDetails, String rawPassword) {

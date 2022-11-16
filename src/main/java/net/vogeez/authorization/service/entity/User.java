@@ -10,6 +10,17 @@ import java.util.Date;
 import java.util.Set;
 
 /**
+ * This Entity class represents a User in the database.
+ * It contains all the information needed Information about a user that
+ * we need in our application.
+ *
+ * @see Entity
+ * @see Table
+ * @see Id
+ * @see GeneratedValue
+ * @see Column
+ * @see JsonIgnore
+ *
  * @author : Niklas Tat
  * @since : 0.1
  */

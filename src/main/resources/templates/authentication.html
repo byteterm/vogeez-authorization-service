@@ -10,15 +10,15 @@
 <body>
 
 <!-- Checks if the parameter #signIn -->
-    <div th:if="!${param.signUp}" class="container">
+    <div th:if="!${param.signup}" class="container">
         <div class="headline">
             <h1 class="headline">Sign In</h1>
         </div>
-        <form th:action="@{/signIn}" class="form-style" method="POST">
+        <form th:action="@{/signin}" class="form-style" method="POST">
             <input name="username" id="username_login" type="text" placeholder="Username..." required>
             <input name="password" id="password_login" type="password" placeholder="Password..." required>
             <input id="submit_login" type="submit" value="Sign In">
-            <a th:href="@{/?signUp=0}">Not a member yet?</a>
+            <a th:href="@{/?signup=0}">Not a member yet?</a>
         </form>
         <div class="social-link-container">
             <a href="#google"><i class="fa-brands fa-google"></i></a>
@@ -29,11 +29,11 @@
     </div>
 
 <!-- Checks if the parameter #signUp -->
-<div th:if="${param.signUp}" class="container">
+<div th:if="${param.signup}" class="container">
     <div class="headline">
         <h1 class="headline">Sign Up</h1>
     </div>
-    <form th:action="@{/signUp}" th:object="${signUpRequest}" class="form-style" method="POST">
+    <form th:action="@{/signup}" th:object="${signUpRequest}" class="form-style" method="POST">
         <input th:field="*{username}" id="username_register" type="text" placeholder="Username..." required>
         <input th:field="*{email}" id="email_register" type="email" placeholder="Email..." required>
         <input th:field="*{password}" id="password_register" type="password" placeholder="Password..." required>

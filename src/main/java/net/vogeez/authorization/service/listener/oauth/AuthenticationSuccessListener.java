@@ -6,6 +6,14 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.stereotype.Component;
 
 /**
+ * This Component listens for {@link AuthenticationSuccessEvent}s.
+ * Here we can log the user and send him for example a email, that he has logged in
+ * to prevent unauthorized access.
+ *
+ * @see Component
+ * @see ApplicationListener
+ * @see AuthenticationSuccessEvent
+ *
  * @author : Niklas Tat
  * @since : 0.1
  */
