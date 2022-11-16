@@ -101,7 +101,7 @@ public class SecurityConfig {
     }
 
     private AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ERROR_UNAUTHORIZED_MESSAGE);
+        return (request, response, authException) -> response.sendRedirect(WebConfig.AUTHENTICATION_URL);
     }
 
     private AccessDeniedHandler accessDeniedHandler() {
