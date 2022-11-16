@@ -12,6 +12,18 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
+ * This Repository is used to access the {@link User} table in the database.
+ * It extends the {@link JpaRepository} and provides all the methods to access the database.
+ * The {@link User} class is the entity class for the {@link User} table.
+ * The {@link Long} class is the type of the primary key of the {@link User} table.
+ * The {@link UserRepository} class is annotated with {@link Repository} to make it a Spring Bean.
+ *
+ * @see Repository
+ * @see JpaRepository
+ * @see User
+ * @see Long
+ * @see Transactional
+ *
  * @author : Niklas Tat
  * @since : 0.1
  */

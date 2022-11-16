@@ -16,6 +16,17 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 /**
+ * This Service is used to handle all the user related operations.
+ * It implements the {@link ClientService} interface and provides all the methods to access the database.
+ * The {@link User} class is the entity class for the {@link User} table.
+ * The {@link UserRepository} class is used to access the {@link User} table in the database.
+ * The {@link ClientServiceImpl} class is annotated with {@link Service} to make it a Spring Bean.
+ *
+ * @see Service
+ * @see ClientService
+ * @see User
+ * @see UserRepository
+ *
  * @author : Niklas Tat
  * @since : 0.5
  */

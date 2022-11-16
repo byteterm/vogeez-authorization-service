@@ -11,6 +11,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
+ * This Model class represents a SignUpRequest. It contains all the information
+ * that we need to create a new user. The information is validated by the
+ * annotations.
+ *
+ * @see NotBlank
+ * @see NotNull
+ * @see Username
+ * @see Email
+ * @see Password
+ * @see AcceptTerms
+ *
  * @author : Niklas Tat
  * @since : 0.1
  */

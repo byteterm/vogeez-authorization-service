@@ -13,6 +13,19 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 /**
+ * This Service is used to sign up a new user.
+ * It implements the {@link SignUpService} interface and provides all the methods to sign up a new user.
+ * The {@link User} class is the entity class for the {@link User} table.
+ * The {@link UserRepository} class is used to access the {@link User} table in the database.
+ * The {@link PasswordEncoder} class is used to encode the password of the new user.
+ * The {@link SignUpServiceImpl} class is annotated with {@link Service} to make it a Spring Bean.
+ *
+ * @see Service
+ * @see SignUpService
+ * @see User
+ * @see UserRepository
+ * @see PasswordEncoder
+ *
  * @author : Niklas Tat
  * @since : 0.5
  */

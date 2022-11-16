@@ -16,6 +16,15 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 
 /**
+ * This Service is used to authenticate the user.
+ * It implements the {@link CustomAuthenticationProvider} interface and provides all the methods to authenticate the user.
+ * The {@link CustomAuthenticationProviderImpl} class is annotated with {@link Service} to make it a Spring Bean.
+ * The {@link PasswordEncoder} class is used to encode the password.
+ *
+ * @see Service
+ * @see CustomAuthenticationProvider
+ * @see PasswordEncoder
+ *
  * @author : Niklas Tat
  * @since : 0.5
  */

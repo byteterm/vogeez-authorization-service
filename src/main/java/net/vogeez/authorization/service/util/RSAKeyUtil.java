@@ -17,6 +17,16 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.UUID;
 
 /**
+ * This class is used to generate a RSA key pair and save it to a file.
+ * The RSA key pair is used to sign and verify the JWT.
+ *
+ * @see RSAKey
+ * @see KeyPair
+ * @see KeyPairGenerator
+ * @see KeyFactory
+ * @see PKCS8EncodedKeySpec
+ * @see X509EncodedKeySpec
+ *
  * @author : Niklas Tat
  * @since : 0.1
  */

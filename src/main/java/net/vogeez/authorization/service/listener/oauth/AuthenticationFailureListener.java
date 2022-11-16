@@ -6,6 +6,15 @@ import org.springframework.security.authentication.event.AuthenticationFailureBa
 import org.springframework.stereotype.Component;
 
 /**
+ * This Component listens for {@link AuthenticationFailureBadCredentialsEvent}s.
+ * It logs how many times a user has tried to login with wrong credentials.
+ * If the user has tried to login 5 times with wrong credentials, the user will be locked.
+ * The user will be unlocked after after 5 minutes.
+ *
+ * @see Component
+ * @see ApplicationListener
+ * @see AuthenticationFailureBadCredentialsEvent
+ *
  * @author : Niklas Tat
  * @since : 0.1
  */
@@ -15,9 +24,9 @@ public class AuthenticationFailureListener implements ApplicationListener<Authen
 
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event) {
-        // Get the IP address of the client
+        //ToDo log how many times a user has tried to login with wrong credentials and lock the user after 5 times.
+
         String ip = event.getAuthentication().getDetails().toString();
-        // Get the Username of the client
         String username = event.getAuthentication().getName();
 
         log.error("Authentication failed for user {} from IP {}", username, ip);
