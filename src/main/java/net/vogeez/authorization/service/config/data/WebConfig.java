@@ -15,7 +15,7 @@ public class WebConfig {
     }
 
     public static final String AUTHENTICATION_URL = "/";
-    public static final String LOGIN_URL = "/asd";
+    public static final String LOGIN_URL = "/signin";
     public static final String LOGOUT_URL = "/logout";
     public static final String LOGIN_FAILURE_URL = AUTHENTICATION_URL + "?error";
     public static final String DEFAULT_SUCCESS_URL = "/account/profile";
@@ -27,7 +27,6 @@ public class WebConfig {
             // Authentication endpoints
             AUTHENTICATION_URL,
             LOGIN_URL,
-            "/signin",
             "/signup",
     };
 }
