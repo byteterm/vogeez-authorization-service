@@ -6,7 +6,11 @@ import net.vogeez.authorization.service.service.SignUpService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 /**
  * This Controller is to handle the Authentication endpoints.
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @see Controller
  * @see GetMapping
+ * @see PostMapping
  * @see RequiredArgsConstructor
  * @see SignUpService
  *
@@ -42,15 +47,45 @@ public class AuthenticationEndpoint {
      * @see RequestParam
      * @see Model
      *
-     * @return the login and signup page
+     * @return the authentication page
      */
     @GetMapping("/")
     public String displayAuthenticationPage(@RequestParam(value = "signup", required = false) String signUp, Model model) {
+        // ToDo: Check if the user is already logged in if yes redirect to the account dashboard
+
+        // If the signUp parameter is not null, the user see the sign up page and need the SignUpRequest model
         if (signUp != null) {
             model.addAttribute("signUpRequest", new SignUpRequest());
         }
 
         return "authentication";
+    }
+
+    /**
+     * This method handles the sign up request from the user ("/signup").
+     * If the user is already logged in, the user gets redirected to the
+     * account dashboard. If the user is not logged in, the user gets
+     * redirected to the login page.
+     * The SignUpRequest is validated by the {@link Valid} annotation.
+     * The SignUpRequest is passed to the {@link SignUpService} to sign up
+     * the user.
+     *
+     * @see PostMapping
+     * @see Valid
+     * @see ModelAttribute
+     * @see SignUpRequest
+     * @see SignUpService
+     *
+     * @param signUpRequest the sign up request from the with the needed information to sign up the user
+     * @return the authentication page
+     */
+    @PostMapping("/signup")
+    public String signIn(@ModelAttribute("signUpRequest") @Valid SignUpRequest signUpRequest) {
+        // ToDo: Check if the user is already logged in if yes redirect to the account dashboard
+
+        signUpService.signUpUser(signUpRequest);
+
+        return "redirect:/";
     }
 
 }
