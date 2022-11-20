@@ -3,8 +3,11 @@ package net.vogeez.authorization.service.endpoint;
 import lombok.RequiredArgsConstructor;
 import net.vogeez.authorization.service.model.SignUpRequest;
 import net.vogeez.authorization.service.service.SignUpService;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,26 +46,29 @@ public class AuthenticationEndpoint {
      * the "/signin" endpoint and the SignUp request is handled
      * by the "/signup" endpoint.
      *
+     * @return the authentication page
      * @see GetMapping
      * @see RequestParam
      * @see Model
-     *
-     * @return the authentication page
      */
     @GetMapping("/")
-    public String displayAuthenticationPage(@RequestParam(value = "signup", required = false) String signUp, Model model) {
-        // ToDo: Check if the user is already logged in if yes redirect to the account dashboard
-
-        // If the signUp parameter is not null, the user see the sign up page and need the SignUpRequest model
-        if (signUp != null) {
-            model.addAttribute("signUpRequest", new SignUpRequest());
+    public String displayAuthenticationPage(@RequestParam(value = "signup", required = false) String signUp, Model model, Authentication authentication) {
+        // Check if the user is already logged in
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return ViewNames.ACCOUNT_DASHBOARD.getViewName();
         }
 
-        return "authentication";
+        if (signUp != null) {
+            model.addAttribute("signIn", true);
+        }
+
+        model.addAttribute("signUpRequest", new SignUpRequest());
+
+        return ViewNames.AUTHENTICATION.getViewName();
     }
 
     /**
-     * This method handles the sign up request from the user ("/signup").
+     * This method handles the sign-up request from the user ("/signup").
      * If the user is already logged in, the user gets redirected to the
      * account dashboard. If the user is not logged in, the user gets
      * redirected to the login page.
@@ -76,16 +82,24 @@ public class AuthenticationEndpoint {
      * @see SignUpRequest
      * @see SignUpService
      *
-     * @param signUpRequest the sign up request from the with the needed information to sign up the user
+     * @param signUpRequest the sign-up request from the with the needed information to sign up the user
      * @return the authentication page
      */
     @PostMapping("/signup")
-    public String signIn(@ModelAttribute("signUpRequest") @Valid SignUpRequest signUpRequest) {
-        // ToDo: Check if the user is already logged in if yes redirect to the account dashboard
+    public String signIn(@Valid @ModelAttribute("signUpRequest") SignUpRequest signUpRequest, BindingResult bindingResult, Model model, Authentication authentication) {
+        // Check if the user is already logged in
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            return ViewNames.ACCOUNT_DASHBOARD.getViewName();
+        }
+
+        // Check for validation errors in the sign-up request
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("signIn", true);
+            return ViewNames.AUTHENTICATION.getViewName();
+        }
 
         signUpService.signUpUser(signUpRequest);
 
-        return "redirect:/";
+        return ViewNames.AUTHENTICATION.getViewName();
     }
-
 }
