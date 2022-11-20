@@ -36,7 +36,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
      * Note: the regex check the input string for blank chars! (Whitespace)
      *
      */
-    public static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^§&+=])(?=\\S+$).{8,32}$");
+    public static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^!§&?+=])(?=\\S+$).{8,32}$");
 
     @Override
     public void initialize(Password constraintAnnotation) {

@@ -1,6 +1,7 @@
 package net.vogeez.authorization.service.config.security;
 
 import lombok.RequiredArgsConstructor;
+import net.vogeez.authorization.service.endpoint.ViewNames;
 import net.vogeez.authorization.service.service.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -79,8 +80,8 @@ public class SecurityConfig {
                 // Login
                 .csrf().disable()
                 .formLogin(formLogin -> formLogin
-                        .loginPage(WebConfig.AUTHENTICATION_URL)
-                        .loginProcessingUrl(WebConfig.LOGIN_URL)
+                        .loginPage(ViewNames.AUTHENTICATION.getUrl())
+                        .loginProcessingUrl(WebConfig.LOGIN_PROCESS_URL)
                         .failureUrl(WebConfig.LOGIN_FAILURE_URL)
                         .usernameParameter(WebConfig.USERNAME_PARAMETER)
                         .passwordParameter(WebConfig.PASSWORD_PARAMETER)
@@ -91,7 +92,7 @@ public class SecurityConfig {
                 .logoutUrl(WebConfig.LOGOUT_URL)
                 .invalidateHttpSession(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher(WebConfig.LOGOUT_URL, HttpMethod.GET.name()))
-                .logoutSuccessUrl(WebConfig.AUTHENTICATION_URL);
+                .logoutSuccessUrl(ViewNames.AUTHENTICATION.getUrl());
         return http.build();
     }
 
@@ -101,7 +102,7 @@ public class SecurityConfig {
     }
 
     private AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, authException) -> response.sendRedirect(WebConfig.AUTHENTICATION_URL);
+        return (request, response, authException) -> response.sendRedirect(ViewNames.AUTHENTICATION.getUrl());
     }
 
     private AccessDeniedHandler accessDeniedHandler() {

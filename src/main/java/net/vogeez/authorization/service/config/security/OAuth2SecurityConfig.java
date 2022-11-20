@@ -1,6 +1,7 @@
 package net.vogeez.authorization.service.config.security;
 
 import lombok.RequiredArgsConstructor;
+import net.vogeez.authorization.service.endpoint.ViewNames;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -44,7 +45,7 @@ public class OAuth2SecurityConfig {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
         http.exceptionHandling(exceptions -> exceptions
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(WebConfig.AUTHENTICATION_URL))
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(ViewNames.AUTHENTICATION.getUrl()))
         );
         return http.build();
     }

@@ -10,7 +10,7 @@
 <body>
 
 <!-- Checks if the parameter #signIn -->
-    <div th:if="!${param.signup}" class="container">
+    <div th:unless="${signIn} == true" class="container">
         <div class="headline">
             <h1 class="headline">Sign In</h1>
         </div>
@@ -29,14 +29,27 @@
     </div>
 
 <!-- Checks if the parameter #signUp -->
-<div th:if="${param.signup}" class="container">
+<div th:if="${signIn} == true" class="container">
     <div class="headline">
         <h1 class="headline">Sign Up</h1>
     </div>
     <form th:action="@{/signup}" th:object="${signUpRequest}" class="form-style" method="POST">
+        <label for="username_register" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username</label>
         <input th:field="*{username}" id="username_register" type="text" placeholder="Username..." required>
+
+        <label for="email_register" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Username</label>
         <input th:field="*{email}" id="email_register" type="email" placeholder="Email..." required>
-        <input th:field="*{password}" id="password_register" type="password" placeholder="Password..." required>
+
+        <label for="password_register" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Username</label>
+        <input th:field="*{password}" name="password_register" id="password_register" type="password" placeholder="Password..." required>
+
+        <label for="password_register_repeat" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Username</label>
+        <input th:field="*{passwordRepeat}" id="password_register_repeat" type="password" placeholder="Password..." required>
+
+        <label for="terms_register_repeat" th:if="${#fields.hasErrors('acceptTerms')}" th:errors="*{acceptTerms}">Username</label>
+        <input th:field="*{acceptTerms}" id="terms_register_repeat" type="checkbox" name="terms" required>
+        <label for="terms_register_repeat">I accept the terms and conditions</label>
+
         <input id="submit_register" type="submit" value="Sign Up">
         <a th:href="@{/?signIn=0}">Already a member? Sign In!</a>
     </form>
