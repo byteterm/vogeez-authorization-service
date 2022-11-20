@@ -41,9 +41,9 @@ public class ClientServiceImpl implements ClientService {
     public UserDetails loadUserByUsername(@Valid @Username String usernameOrEmail) throws UsernameNotFoundException {
         Optional<User> user;
         if (usernameOrEmail.contains("@")) {
-            user = userRepository.findByEmail(usernameOrEmail);
+            user = userRepository.findByEmailIgnoreCase(usernameOrEmail);
         } else {
-            user = userRepository.findByUsername(usernameOrEmail);
+            user = userRepository.findByUsernameIgnoreCase(usernameOrEmail);
         }
 
         User foundUser = user.orElseThrow(() -> new UsernameNotFoundException("Username or Email {} not found" + usernameOrEmail));

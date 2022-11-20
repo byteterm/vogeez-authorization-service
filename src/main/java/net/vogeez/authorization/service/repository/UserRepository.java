@@ -31,18 +31,18 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByUsername(String usernameOrEmail);
-    Optional<User> findByEmail(String usernameOrEmail);
+    Optional<User> findByUsernameIgnoreCase(String usernameOrEmail);
+    Optional<User> findByEmailIgnoreCase(String usernameOrEmail);
 
     @Modifying
-    @Query("update User as u set u.password = :p where u.username = :u")
+    @Query("update User as u set u.password = :p where lower(u.username) = lower(:u)")
     void updateUserPassword(@Param("u") String username, @Param("p") String password);
 
     @Modifying
-    @Query("update User as u set u.lastLoginDate = :d where u.username = :u")
+    @Query("update User as u set u.lastLoginDate = :d where lower(u.username) = lower(:u)")
     void updateUserLastLoginDate(@Param("u") String username, @Param("d") Date loginDate);
 
-    boolean existsByUsername(String username);
-    boolean existsByEmail(String email);
-    boolean existsByUsernameOrEmail(String username, String email);
+    boolean existsByUsernameIgnoreCase(String username);
+    boolean existsByEmailIgnoreCase(String email);
+    boolean existsByUsernameIgnoreCaseOrEmailIgnoreCase(String username, String email);
 }

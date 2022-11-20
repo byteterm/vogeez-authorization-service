@@ -61,6 +61,6 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Override
     public boolean existsUserByUsernameOrEmail(String username, String email) {
-        return userRepository.existsByUsernameOrEmail(username, email);
+        return userRepository.existsByUsernameIgnoreCaseOrEmailIgnoreCase(username, email);
     }
 }
