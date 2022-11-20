@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
  * Here we configure the PasswordEncoder to use the Pbkdf2PasswordEncoder.
  * The Pbkdf2PasswordEncoder is a password encoder that uses the PBKDF2 hashing function.
  * The Pbkdf2PasswordEncoder is a strong password encoder that is recommended for password storage.
- * As parameters we can configure the secret of the password encoder, the number of iterations and
+ * As parameters, we can configure the secret of the password encoder, the number of iterations and
  * the hashWidth. You can change the values of the variables in the application.properties file or
  * over the environment variables. In the @Value annotation you can see the syntax for changing the
  * values. The default values are set in the @Value annotation. You can see the default values after

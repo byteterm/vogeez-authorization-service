@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import net.vogeez.authorization.service.config.data.OAuthConfig;
-import net.vogeez.authorization.service.config.data.WebConfig;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 /**
