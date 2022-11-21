@@ -3,6 +3,8 @@ package net.vogeez.authorization.service.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This Entity class is used to store / get the a role from the database.
@@ -36,4 +38,11 @@ public class Role {
 
     @Column(length = 50, nullable = false, unique = true)
     private String name;
+    private String icon;
+    @Column(length = 10)
+    private String color;
+
+    @ElementCollection
+    private Set<String> aliases;
+
 }

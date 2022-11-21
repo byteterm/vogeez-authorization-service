@@ -40,11 +40,16 @@ public class User {
 
     @Column(nullable = false, unique = true, length = 50, updatable = false)
     private String username;
+    private String avatar;
     @Column(length = 144, nullable = false)
     @JsonIgnore
     private String password;
     @Column(unique = true, length = 100, nullable = false, updatable = false)
     private String email;
+    @Column(nullable = false, length = 50)
+    private String nickname;
+    @Column(unique = true, length = 5, nullable = false)
+    private String byteId;
 
     @Column(nullable = false)
     private boolean accountNonExpired;
