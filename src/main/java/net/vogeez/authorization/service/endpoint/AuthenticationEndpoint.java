@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 
 /**
  * This Controller is to handle the Authentication endpoints.
@@ -52,11 +54,7 @@ public class AuthenticationEndpoint {
      * @see Model
      */
     @GetMapping("/")
-    public String displayAuthenticationPage(@RequestParam(value = "signup", required = false) String signUp, Model model, Authentication authentication) {
-        // Check if the user is already logged in
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return ViewNames.ACCOUNT_DASHBOARD.getViewName();
-        }
+    public String displayAuthenticationPage(@RequestParam(value = "signup", required = false) String signUp, Model model) {
 
         if (signUp != null) {
             model.addAttribute("signIn", true);
@@ -86,12 +84,7 @@ public class AuthenticationEndpoint {
      * @return the authentication page
      */
     @PostMapping("/signup")
-    public String signIn(@Valid @ModelAttribute("signUpRequest") SignUpRequest signUpRequest, BindingResult bindingResult, Model model, Authentication authentication) {
-        // Check if the user is already logged in
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            return ViewNames.ACCOUNT_DASHBOARD.getViewName();
-        }
-
+    public String signIn(@Valid @ModelAttribute("signUpRequest") SignUpRequest signUpRequest, BindingResult bindingResult, Model model) throws MessagingException, UnsupportedEncodingException {
         // Check for validation errors in the sign-up request
         if (bindingResult.hasErrors()) {
             model.addAttribute("signIn", true);

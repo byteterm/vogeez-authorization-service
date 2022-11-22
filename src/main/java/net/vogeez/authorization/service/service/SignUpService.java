@@ -3,6 +3,9 @@ package net.vogeez.authorization.service.service;
 import net.vogeez.authorization.service.entity.User;
 import net.vogeez.authorization.service.model.SignUpRequest;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+
 /**
  * This interface is used to sign up a new user
  *
@@ -11,6 +14,6 @@ import net.vogeez.authorization.service.model.SignUpRequest;
  */
 public interface SignUpService {
 
-    User signUpUser(SignUpRequest signUpRequest);
+    User signUpUser(SignUpRequest signUpRequest) throws MessagingException, UnsupportedEncodingException;
     boolean existsUserByUsernameOrEmail(String username, String email);
 }
