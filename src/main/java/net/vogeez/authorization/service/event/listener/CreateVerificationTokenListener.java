@@ -6,6 +6,7 @@ import net.vogeez.authorization.service.config.data.EmailConfig;
 import net.vogeez.authorization.service.entity.User;
 import net.vogeez.authorization.service.entity.VerificationToken;
 import net.vogeez.authorization.service.event.CreateVerificationTokenEvent;
+import net.vogeez.authorization.service.exception.UserAlreadyVerified;
 import net.vogeez.authorization.service.repository.VerificationTokenRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.MailSender;
@@ -33,6 +34,9 @@ public class CreateVerificationTokenListener implements ApplicationListener<Crea
     @Override
     public void onApplicationEvent(CreateVerificationTokenEvent event) {
         User user = event.getUser();
+
+        if (user.isEmailVerified())
+            throw new UserAlreadyVerified("User is already verified");
 
         // Check if the user already has a verification token.
         if (verificationTokenRepository.findByUser(user).isPresent()) {
