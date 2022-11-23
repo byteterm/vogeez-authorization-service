@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -70,6 +71,9 @@ public class User {
     private Date lastUpdateDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLoginDate;
+
+    @Column(nullable = false)
+    private Locale locale;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",

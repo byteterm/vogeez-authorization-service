@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 
@@ -84,14 +85,14 @@ public class AuthenticationEndpoint {
      * @return the authentication page
      */
     @PostMapping("/signup")
-    public String signIn(@Valid @ModelAttribute("signUpRequest") SignUpRequest signUpRequest, BindingResult bindingResult, Model model) throws MessagingException, UnsupportedEncodingException {
+    public String signIn(@Valid @ModelAttribute("signUpRequest") SignUpRequest signUpRequest, BindingResult bindingResult, Model model, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
         // Check for validation errors in the sign-up request
         if (bindingResult.hasErrors()) {
             model.addAttribute("signIn", true);
             return ViewNames.AUTHENTICATION.getViewName();
         }
 
-        signUpService.signUpUser(signUpRequest);
+        signUpService.signUpUser(signUpRequest, request.getLocale());
 
         return ViewNames.AUTHENTICATION.getViewName();
     }

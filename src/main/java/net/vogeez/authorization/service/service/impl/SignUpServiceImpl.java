@@ -3,7 +3,9 @@ package net.vogeez.authorization.service.service.impl;
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
 import net.vogeez.authorization.service.config.data.EmailConfig;
+import net.vogeez.authorization.service.event.RegistrationCompleteEvent;
 import net.vogeez.authorization.service.exception.UserAlreadyExistsException;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,12 +46,11 @@ import java.util.UUID;
 public class SignUpServiceImpl implements SignUpService {
 
     private final UserRepository userRepository;
-    private final EmailConfig emailConfig;
     private final PasswordEncoder passwordEncoder;
-    private final JavaMailSender mailSender;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
-    public User signUpUser(SignUpRequest signUpRequest) throws MessagingException, UnsupportedEncodingException {
+    public User signUpUser(SignUpRequest signUpRequest, Locale locale) {
         //ToDo set role
 
         if (!signUpRequest.getPassword().equals(signUpRequest.getPasswordRepeat()))
@@ -56,8 +58,11 @@ public class SignUpServiceImpl implements SignUpService {
 
 
         Optional<User> user = Optional.of(userRepository.save(User.builder()
+                .byteId(RandomString.make(5))
+                .nickname(RandomString.make(10))
                 .username(signUpRequest.getUsername())
                 .email(signUpRequest.getEmail())
+                .locale(locale)
                 .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .accountNonExpired(true)
                 .accountNonLocked(true)
@@ -68,7 +73,7 @@ public class SignUpServiceImpl implements SignUpService {
 
         User createdUser = user.orElseThrow(() -> new UserAlreadyExistsException("A user with the given username or email already exists"));
 
-        sendVerificationEmail(createdUser);
+        eventPublisher.publishEvent(new RegistrationCompleteEvent(createdUser));
 
         return createdUser;
     }
@@ -76,28 +81,5 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public boolean existsUserByUsernameOrEmail(String username, String email) {
         return userRepository.existsByUsernameIgnoreCaseOrEmailIgnoreCase(username, email);
-    }
-
-    private void sendVerificationEmail(User user) throws UnsupportedEncodingException, MessagingException {
-        String verificationCode = RandomString.make(64);
-
-        String fomEmailAddress = emailConfig.fromAddress;
-        String emailSenderName = emailConfig.senderName;
-        String emailSubject = emailConfig.subject;
-        String emailContent = emailConfig.content;
-
-        emailContent = emailContent.replace("%USER_NAME%", user.getUsername());
-        emailContent = emailContent.replace("%SENDER_NAME%", emailSenderName);
-        emailContent = emailContent.replace("%VERIFICATION_CODE%", verificationCode);
-
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        helper.setFrom(fomEmailAddress, emailSenderName);
-        helper.setText(user.getEmail());
-        helper.setSubject(emailSubject);
-        helper.setText(emailContent, true);
-
-        mailSender.send(message);
     }
 }
