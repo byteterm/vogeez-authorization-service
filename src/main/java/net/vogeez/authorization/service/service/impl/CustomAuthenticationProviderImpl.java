@@ -33,7 +33,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class CustomAuthenticationProviderImpl implements CustomAuthenticationProvider {
 
-    private final ClientServiceImpl userDetailsService;
+    private final UserServiceImpl userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
     @Override

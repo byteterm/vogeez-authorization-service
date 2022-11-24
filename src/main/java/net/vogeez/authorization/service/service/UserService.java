@@ -8,5 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author : Niklas Tat
  * @since : 0.5
  */
-public interface ClientService extends UserDetailsService {
+public interface UserService extends UserDetailsService {
+
+    boolean verifyEmailToken(String token, String email);
+
+    void resendVerificationToken(String email);
 }

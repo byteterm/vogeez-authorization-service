@@ -10,7 +10,9 @@ import lombok.Getter;
 public enum ViewNames {
     AUTHENTICATION("authentication", "/"),
     ACCOUNT_DASHBOARD("account/dashboard", "/account/dashboard"),
-    ACCOUNT_PROFILE("account/profile", "/account/profile");
+    ACCOUNT_PROFILE("account/profile", "/account/profile"),
+    EMAIL_VERIFICATION("email/verification", "/code"),
+    EMAIL_VERIFICATION_RESEND("email/verification/resend", "/code/resend");
     private final String viewName;
     private final String url;
 

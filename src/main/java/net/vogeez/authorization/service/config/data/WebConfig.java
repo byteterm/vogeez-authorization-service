@@ -29,5 +29,8 @@ public class WebConfig {
             ViewNames.AUTHENTICATION.getUrl(),
             LOGIN_PROCESS_URL,
             "/signup",
+            // Email verification endpoints
+            ViewNames.EMAIL_VERIFICATION.getUrl(),
+            ViewNames.EMAIL_VERIFICATION_RESEND.getUrl(),
     };
 }
