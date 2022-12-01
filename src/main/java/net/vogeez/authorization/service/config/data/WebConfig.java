@@ -25,6 +25,8 @@ public class WebConfig {
     public static final String[] ENDPOINTS_WHITELIST = {
             // static resources
             "/css/**",
+            "/fonts/**",
+            "/svg/**",
             // Authentication endpoints
             ViewNames.AUTHENTICATION.getUrl(),
             LOGIN_PROCESS_URL,

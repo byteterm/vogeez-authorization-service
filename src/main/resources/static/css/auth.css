@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  max-height: 100vh;
+  height: 100vh;
+  background: url("/svg/Night Illustration HD Wallpapers Top Free Night Illustration HD.jpg") no-repeat center/cover;
+}
+body .container {
+  position: absolute;
+  width: 825px;
+  height: 450px;
+  background: rgba(91, 60, 132, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  padding: 10px;
+  overflow: hidden;
+  transition: 0.4s ease-in-out;
+}
+body .container .input-container {
+  float: left;
+  width: 65%;
+  height: 100%;
+}
+body .container .headline {
+  float: left;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .container .form-container {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  width: 100%;
+  height: 85%;
+  box-sizing: border-box;
+  padding: 5px 15px;
+}
+body .container .form-container label {
+  float: left;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  color: #DDDDDD;
+  margin: 10px 0;
+}
+body .container .form-container input[type=text], body .container .form-container input[type=password], body .container .form-container input[type=email] {
+  float: left;
+  width: 100%;
+  height: 25px;
+  border: none;
+  outline: none;
+  background: rgb(86, 62, 120);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  color: #EEEEEE;
+  margin-bottom: 20px;
+}
+body .container .form-container .to-signup {
+  float: left;
+  text-decoration: none;
+  color: #AAAAAA;
+  font-size: 0.75em;
+  margin-top: 15px;
+  text-transform: unset;
+  cursor: pointer;
+}
+body .container .form-container .to-signup span {
+  color: rgb(160, 183, 77);
+  font-size: 1.1em;
+  transition: 0.2s ease-in-out;
+}
+body .container .form-container .to-signup:hover span {
+  color: rgb(180, 206, 75);
+}
+body .container .form-container .linked {
+  float: left;
+  text-decoration: none;
+  color: #AAAAAA;
+  font-size: 0.75em;
+  transition: 0.2s ease-in-out;
+}
+body .container .form-container .linked:hover {
+  color: #ffffff;
+}
+body .container .form-container button {
+  float: left;
+  width: 35%;
+  height: 40px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-top: 40px;
+  background: rgb(160, 183, 77);
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+}
+body .container .form-container button:hover {
+  background: rgb(180, 206, 75);
+}
+body .sign-in {
+  z-index: 2;
+  opacity: 1;
+}
+body .sign-up {
+  z-index: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+}
+body #switch:checked ~ .sign-in {
+  z-index: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+}
+body #switch:checked ~ .sign-up {
+  z-index: 2;
+  width: 825px;
+  height: 750px;
+  padding: 10px;
+  margin: 0;
+  opacity: 1;
+}
+body h3 {
+  font-size: 2em;
+  font-weight: 600;
+  color: #fff;
+}
+body #switch {
+  display: none;
+}
+
+/*# sourceMappingURL=auth.css.map */
